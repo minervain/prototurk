@@ -3,7 +3,7 @@
 import Button from "./Components/Button";
 import "./index.css"
 import Tab from "./Components/Tab";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import Lifecycle from "./Lifecycle";
 
 
@@ -52,19 +52,63 @@ import Lifecycle from "./Lifecycle";
 
 // export default App;
 
+// function App(){
+
+//    const [show,setShow]=useState(false)
+//    return(
+// <>
+// <button onClick={()=>setShow(show=>!show)}>
+//    {show ?'Gizle' :'Göster'}
+// </button>
+// {show && <Lifecycle/>}
+
+// </>
+
+//    )
+// }
+
+// export default App;
+
+
+
 function App(){
 
-   const [show,setShow]=useState(false)
-   return(
+ 
+
+const [todos,setTodos]=useState([])
+const [todo,setTodo]=useState()
+
+const submitHandle=e=>{
+e.preventDefault()
+setTodos([...todos,todo])
+setTodo('')
+}
+return(
 <>
-<button onClick={()=>setShow(show=>!show)}>
-   {show ?'Gizle' :'Göster'}
-</button>
-{show && <Lifecycle/>}
+<h1>Todo App</h1>
+<form onSubmit={submitHandle}>
+   <input type="text" value={todo} onChange={e=>setTodo(e.target.value)}></input>
+   <button type="submit">Ekle</button>
+   <ul>
+      {todos.map((todo,index)=>(
+         <li key={index}>
+            {todo}
+         </li>
+      ))}
+   </ul>
+
+</form>
+ 
+
 
 </>
 
-   )
+
+
+
+)
+
+   
 }
 
 export default App;
